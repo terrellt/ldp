@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Ldp::Response do
-  LDP_RESOURCE_HEADERS = { "Link" => "<#{Ldp.resource.to_s}>;rel=\"type\""}
+  LDP_RESOURCE_HEADERS = { "Link" => "<#{Ldp.direct_container.to_s}>;rel=\"type\""}
 
   let(:mock_response) { double(headers: {}, env: { url: "info:a" }) }
   let(:mock_client) { double(Ldp::Client) }
@@ -44,10 +44,10 @@ describe Ldp::Response do
   end
 
   describe ".resource?" do
-    it "should be a resource if a Link[rel=type] header asserts it is an ldp:resource" do
+    it "should be a resource if a Link[rel=type] header asserts it is a ldp:container" do
       mock_response.stub(:headers => { 
         "Link" => [
-            "<#{Ldp.resource}>;rel=\"type\""
+            "<#{Ldp.direct_container}>;rel=\"type\""
           ] 
       })
       expect(Ldp::Response.resource? mock_response).to be_true

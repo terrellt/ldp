@@ -116,10 +116,18 @@ module Ldp
       headers['ETag']
     end
 
+    def etag=(val)
+      headers['ETag']=val
+    end
+
     ##
     # Extract the last modified header for the resource
     def last_modified
       headers['Last-Modified']
+    end
+
+    def last_modified=(val)
+      headers['Last-Modified'] = val
     end
 
     ##

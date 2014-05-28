@@ -79,11 +79,12 @@ module Ldp
     # Update the stored graph
     def update new_content = nil
       new_content ||= content
-      client.put subject, new_content do |req|
+      resp = client.put subject, new_content do |req|
         req.headers['If-Match'] = get.etag if retrieved_content?
       end
-      @get = nil
-      reload
+      @get.etag = resp.headers["ETag"]
+      @get.last_modified = resp.headers["Last-Modified"]
+      resp
     end
 
     def current? response = nil
