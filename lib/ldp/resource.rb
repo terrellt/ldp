@@ -82,8 +82,10 @@ module Ldp
       resp = client.put subject, new_content do |req|
         req.headers['If-Match'] = get.etag if retrieved_content?
       end
-      @get.etag = resp.headers["ETag"]
-      @get.last_modified = resp.headers["Last-Modified"]
+      if retrieved_content?
+        @get.etag = resp.headers["ETag"]
+        @get.last_modified = resp.headers["Last-Modified"]
+      end
       resp
     end
 
