@@ -65,7 +65,7 @@ module Ldp
     # @return [RdfSource] the new representation
     def create &block
       raise "Can't call create on an existing resource" unless new?
-      resp = client.post((subject || ""), content) do |req|
+      resp = client.put((subject || ""), content) do |req|
         
         yield req if block_given?
       end
