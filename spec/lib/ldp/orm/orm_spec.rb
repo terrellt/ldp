@@ -40,7 +40,7 @@ describe Ldp::Orm do
   describe "#create" do
     let(:conn_stubs) do
       Faraday::Adapter::Test::Stubs.new do |stub|
-        stub.put("/") { [201]}
+        stub.post("/") { [201]}
       end
     end
     let :test_resource do
