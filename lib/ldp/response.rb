@@ -40,7 +40,7 @@ module Ldp
     # Is the response an LDP resource?
 
     def self.resource? response
-      Array(links(response)["type"]).include? Ldp.resource.to_s
+      Array(links(response)["type"]).include? Ldp.direct_container.to_s
     end
 
     ##
