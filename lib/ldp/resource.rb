@@ -82,6 +82,7 @@ module Ldp
       client.put subject, new_content do |req|
         req.headers['If-Match'] = get.etag if retrieved_content?
       end
+      @get = nil
       reload
     end
 
