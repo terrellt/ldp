@@ -40,7 +40,7 @@ module Ldp
     # Is the response an LDP resource?
 
     def self.resource? response
-      Array(links(response)["type"]).include? Ldp.direct_container.to_s
+      container?(response) || Array(links(response)["type"]).include?(Ldp.resource.to_s)
     end
 
     ##
@@ -113,21 +113,21 @@ module Ldp
     ##
     # Extract the ETag for the resource
     def etag
-      headers['ETag']
+      @etag ||= headers['ETag']
     end
 
     def etag=(val)
-      headers['ETag']=val
+      @etag = val
     end
 
     ##
     # Extract the last modified header for the resource
     def last_modified
-      headers['Last-Modified']
+      @last_modified ||= headers['Last-Modified']
     end
 
     def last_modified=(val)
-      headers['Last-Modified'] = val
+      @last_modified = val
     end
 
     ##
